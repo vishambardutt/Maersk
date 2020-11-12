@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shuffle And Sort</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <title>Shuffle And Sort</title>
+<style>
+.square {
+    background-color: #6F98A8;
+    height: 190px;
+    
+}
+.shuffle
+{
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    max-width: 960px;
+    margin: 0 auto;
+    background-color: #EFEFEF;
+}
+
+.card
+{
+    padding: 10px;
+    display: inline-block;
+	font-size: 14pt;
+	text-align: center;
+	color:black;
+}
+.btn:focus
+{
+    outline: 0;
+}
+.btn
+{
+	background: #72c3dc;
+	padding: 20px 0 20px 0;
+	min-width: 290px;
+    display:inline-block;
+    text-transform: uppercase;
+    font-size: 16px;
+    border-bottom: 7px solid #2b8ead;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 13px;
+    margin-bottom: 25px;
+}
+
+.card .value{
+    font-size: 124px;
+    color: white;
+    text-align: center;
+	font-family: sans-serif;
+}
+.colorGrp1 {
+    background-color: #6F98A8;
+}
+.colorGrp2 {
+    background-color: #2B8EAD;
+}
+.colorGrp3 {
+    background-color: #2F454E;
+}
+.colorGrp4 {
+    background-color: #BFBFBF;
+
+}
+@media (max-width:767px)
+{
+    .shuffle
+    {
+        background-color: white;
+    }
+    #shuffle .card
+    {
+        border-left: 5px solid;
+        background-color: #efefef;
+        height: 35px;
+        margin-bottom: 7px;
+    }
+    .shuffle .btn
+    {
+        min-width: 100%;
+    }
+    #shuffle .card .value
+    {
+        color: #10000f;
+        font-size: 15px;
+    }
+    #shuffle .colorGrp1
+    {
+        border-left-color: #6F98A8;
+    }
+    #shuffle .colorGrp2
+    {
+        border-left-color: #2B8EAD;
+    }
+    #shuffle .colorGrp3
+    {
+        border-left-color: #2F454E;
+    }
+    #shuffle .colorGrp4
+    {
+        border-left-color: #BFBFBF;
+    }
+}
+footer {
+    font-size: 0.8em;
+    text-align: center;
+    color: #333;
+    padding: 5px;
+    display: block;
+}
+header {
+    -moz-box-shadow-bottom: 0px #000;
+    -webkit-box-shadow-bottom: 0px #000;
+    box-shadow-bottom: 0px #000;
+    border: 0px solid #fff;
+    margin: 0;
+    padding: 0em;
+    border-bottom: 0;
+}
+@media (max-width:767px)
+{
+header{background-color:#333333;color:#ffffff;margin:0px 0px 10px 0px;}
+.shuffle{border: 8px solid #000000;
+  padding: 10px;
+  border-radius: 15px;}
+  h1{font-size:30px; padding:10px 0px 10px 0px;}
+}
+</style>
+<script>
+var shuffleAndSortObj = (function shuffleAndSort() {
+    const arra1 = [{ text:1, class: 'colorGrp1' }, { text:2, class: 'colorGrp2' }, { text:3, class: 'colorGrp3' }, { text:4, class: 'colorGrp2' }, { text:5, class: 'colorGrp3' }, { text:6, class: 'colorGrp4' }, { text: 7, class: 'colorGrp4' },{ text:8, class: 'colorGrp1' }, { text:9, class: 'colorGrp3' }];
+function shuffle() {
+    let ctr = arra1.length;
+    let temp;
+    let index;
+
+    // While there are elements in the array
+    while (ctr > 0) {
+        // Pick a random index
+        index = Math.floor(Math.random() * ctr);
+        // Decrease ctr by 1
+        ctr--;
+        // And swap the last element with it
+        temp = arra1[ctr];
+        arra1[ctr] = arra1[index];
+        arra1[index] = temp;
+    }
+    render(arra1);
+}
+function sort() {
+    arra1.sort(function (x, y) {
+        return x.text - y.text;
+    });
+    render(arra1);
+}
+function render(arra1) {
+    document.getElementById('shuffle').innerHTML = '';
+	for(var i = 0; i < arra1.length; i++)
+	{
+		var card = document.createElement("div");
+		var value = document.createElement("div");
+		card.className = "col-md-4 col-sm-4 col-xs-12 square card "+ arra1[i].class;
+		value.className = "value";
+
+		value.innerHTML = arra1[i].text;
+		card.appendChild(value);
+
+		document.getElementById("shuffle").appendChild(card);
+	}
+}
+return {
+    shuffle, sort
+}
+})();
+function load()
+{
+	shuffleAndSortObj.sort();
+}
+window.onload = load;
+
+</script>
+</head>
+
+<body>
+    <div class="shuffle col-md-12">
+        <header>
+            <h1>Shuffle and Sort</h1>
+            <div class="line"></div>
+        </header>
+        <div class="col-md-4 col-sm-4 col-md-push-8 col-sm-push-8">
+            <div class="row">
+                <div class="col-md-12  col-sm-12  col-xs-6"> 
+                    <button class="btn btn-primary"
+                        onclick="shuffleAndSortObj.shuffle()">Shuffle</button>
+                </div>
+                <div class="col-md-12 col-sm-12  col-xs-6"> 
+                    <button class="btn btn-primary" onclick="shuffleAndSortObj.sort()">Sort</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 col-sm-8 col-md-pull-4 col-sm-pull-4">
+            <div class="row text-center" id="shuffle"></div>
+        </div>
+        <footer>
+            <p>Shuffle and Sort by {{ Vishambar Dutt }} 
+              </p>
+        </footer>
+    </div>
+    
+</body>
+
+</html>
